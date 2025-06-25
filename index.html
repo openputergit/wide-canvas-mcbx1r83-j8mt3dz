@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLMSpeak - AI Prompt Engineering</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #0D0D0D;
+            --surface: #1A1A1A;
+            --interactive: #0A84FF;
+            --accent: #64D2FF;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-bg);
+            color: white;
+        }
+        .glass-effect {
+            background: rgba(26, 26, 26, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .loading-bar {
+            width: 0%;
+            height: 2px;
+            background: var(--interactive);
+            transition: width 2s ease-in-out;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Header -->
+    <header class="glass-effect sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
+        <h1 class="text-2xl font-semibold">LLMSpeak</h1>
+        <div class="flex items-center gap-4">
+            <button class="text-gray-400 hover:text-white">
+                <i class="bi bi-moon-fill text-xl"></i>
+            </button>
+            <button class="text-gray-400 hover:text-white">
+                <i class="bi bi-person-circle text-xl"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Prompt Input Section -->
+        <section class="glass-effect rounded-xl p-6 mb-8">
+            <label class="block text-sm font-medium mb-2">Enter a base prompt</label>
+            <textarea 
+                class="w-full h-32 bg-[#2A2A2A] rounded-lg p-4 text-white resize-none focus:ring-2 focus:ring-[var(--interactive)] focus:outline-none"
+                placeholder="Type your prompt here..."></textarea>
+            
+            <div class="mt-4">
+                <label class="block text-sm font-medium mb-2">Target LLM</label>
+                <select class="bg-[#2A2A2A] rounded-lg p-2 w-full">
+                    <option>ChatGPT</option>
+                    <option>Claude</option>
+                    <option>Gemini</option>
+                    <option>Grok</option>
+                    <option>Lovable AI</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- Format Selector -->
+        <section class="grid md:grid-cols-3 gap-4 mb-8">
+            <div class="glass-effect rounded-xl p-4 cursor-pointer hover:border-[var(--interactive)]">
+                <h3 class="font-medium">Expanded Prompt</h3>
+                <p class="text-sm text-gray-400">Detailed version with context</p>
+            </div>
+            <div class="glass-effect rounded-xl p-4 cursor-pointer hover:border-[var(--interactive)]">
+                <h3 class="font-medium">Structured Format</h3>
+                <p class="text-sm text-gray-400">JSON-like organization</p>
+            </div>
+            <div class="glass-effect rounded-xl p-4 cursor-pointer hover:border-[var(--interactive)]">
+                <h3 class="font-medium">Natural Language</h3>
+                <p class="text-sm text-gray-400">Conversational style</p>
+            </div>
+        </section>
+
+        <!-- Generate Button -->
+        <button id="generateBtn" class="w-full bg-[var(--interactive)] text-white py-3 rounded-lg font-medium hover:opacity-90 transition-opacity">
+            Generate Prompt
+        </button>
+        <div id="loadingBar" class="loading-bar mt-2 rounded-full hidden"></div>
+
+        <!-- Output Area -->
+        <section class="glass-effect rounded-xl p-6 mt-8">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-medium">Generated Prompt</h2>
+                <div class="flex gap-2">
+                    <button class="px-3 py-1 rounded bg-[#2A2A2A] text-sm">Copy</button>
+                    <button class="px-3 py-1 rounded bg-[#2A2A2A] text-sm">Export</button>
+                </div>
+            </div>
+            <pre class="bg-[#2A2A2A] p-4 rounded-lg font-mono text-sm overflow-auto max-h-96"></pre>
+        </section>
+    </main>
+
+    <script>
+        const generateBtn = document.getElementById('generateBtn');
+        const loadingBar = document.getElementById('loadingBar');
+
+        generateBtn.addEventListener('click', () => {
+            generateBtn.disabled = true;
+            loadingBar.classList.remove('hidden');
+            loadingBar.style.width = '100%';
+
+            setTimeout(() => {
+                generateBtn.disabled = false;
+                loadingBar.classList.add('hidden');
+                loadingBar.style.width = '0%';
+            }, 2000);
+        });
+    </script>
+<script>document.body.addEventListener('wheel', e => { if (!e.ctrlKey) return; e.preventDefault(); return }, { passive: false })</script>
+	</body>
+</html>
